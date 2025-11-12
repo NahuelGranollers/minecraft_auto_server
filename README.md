@@ -162,7 +162,7 @@ cat setup_debug.log
 ```
 
 ---
-### Cambiar Icono
+## 🖼️ Cambiar Icono
 1. Reemplaza `server-icon.png` en la carpeta del servidor
 2. Debe ser 64x64 píxeles (PNG)
 3. El servidor la detecta automáticamente
