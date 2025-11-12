@@ -1,634 +1,398 @@
 # 🎮 Minecraft Auto Server Setup
 
-> **Configuración automática de servidores Minecraft Java Edition en tu PC local**
+**¡Crea un servidor Minecraft en 30 segundos sin necesidad de conocimientos técnicos!**
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-3.1-brightgreen.svg)](https://github.com/NahuelGranollers/minecraft_auto_server)
-[![Minecraft](https://img.shields.io/badge/Minecraft-1.10--1.21.10-red.svg)](https://www.minecraft.net/)
-[![Bash](https://img.shields.io/badge/Bash-5.0+-black.svg)](https://www.gnu.org/software/bash/)
-
-**Creado por:** [Nahuel Granollers](https://nahuelgranollers.com)
+Un script automatizado que descarga, configura e inicia un servidor Minecraft personalizado. Perfecto para jugar con amigos sin complicaciones.
 
 ---
 
-## ✨ Características
+## ⚡ Inicio Rápido (3 pasos)
 
-### 🚀 Automatización Total
-- **Descarga automática** del servidor Minecraft (Vanilla, Paper, Forge)
-- **Todas las versiones** desde 1.10 hasta 1.21.10 disponibles
-- **Sistema de submenu inteligente** para acceder a todas las versiones
-- **Configuración asistida** con interfaz interactiva
-- **Inicio automático** del servidor después de configurar
-- **Generación automática** de icono del servidor
-- **Validación inteligente** de todas las entradas
+### 1️⃣ **Descargar el Script**
 
-### 🎛️ Configuración Personalizable
-- **20+ parámetros** configurables en modo avanzado
-- **Control de RAM** (mínima y máxima)
-- **MOTD personalizado** (descripción del servidor)
-- **Control total** del puerto, dificultad, modo de juego
-- **Plantillas rápidas** o configuración avanzada
+Descarga el archivo `minecraft-server-setup.sh` desde el repositorio.
 
-### 🎨 Interfaz Profesional
-- **Colores y emojis** para mejor UX
-- **Validaciones robustas** de entradas
-- **Mensajes claros** y en español
-- **Progreso visual** durante la configuración
-- **Resumen final** con toda la información
+### 2️⃣ **Hacer el Script Ejecutable**
 
-### 🌐 Compartir Fácilmente
-- **Mensaje de compartir automático** con IP y puerto
-- **Instrucciones paso a paso** para tus amigos
-- **Formato profesional** listo para copiar y pegar
-- **Información de red local y pública**
-
-### 🔒 Seguridad y Control
-- **Validación de puertos** (1-65535)
-- **Validación de RAM** y memoria
-- **Protección de nombre** de carpeta
-- **EULA automático**
-- **Respaldos y permisos** correctos
-
----
-
-## 📋 Versiones Soportadas
-
-| Categoría | Versiones |
-|---|---|
-| **Latest (1.21.x)** | 1.21.10, 1.21.8, 1.21.6, 1.21.4 |
-| **1.20.x** | 1.20.4, 1.20.3, 1.20.2, 1.20.1 |
-| **1.19.x** | 1.19.2, 1.19.1, 1.19 |
-| **1.18.x** | 1.18.2, 1.18.1, 1.18 |
-| **1.17.x** | 1.17.1, 1.17 |
-| **1.16.x** | 1.16.5, 1.16.4, 1.16.3, 1.16.2, 1.16.1 |
-| **1.15.x** | 1.15.2, 1.15.1, 1.15 |
-| **1.14.x** | 1.14.4, 1.14.3, 1.14.2, 1.14.1, 1.14 |
-| **1.12.x** | 1.12.2, 1.12.1, 1.12 |
-| **1.11.x** | 1.11.2, 1.11.1, 1.11 |
-| **1.10.x** | 1.10.2, 1.10.1, 1.10 |
-
-### Selección de Versión
-
-El script ofrece dos opciones:
-1. **Opción rápida**: Selecciona directamente una de las 5 versiones más recientes
-2. **Opción avanzada (Submenu)**: Accede a un menú de categorías para elegir de todas las versiones disponibles
-
-```
-Versiones disponibles:
-  1) 1.21.10 (Última - Recomendado)
-  2) 1.21.8
-  3) 1.21.6
-  4) 1.21.4
-  5) 📂 Más versiones...  ← Abre submenu con todas las versiones
-```
-
----
-
-## 🎯 Inicio Rápido
-
-### Requisitos Previos
-- **Bash** 5.0+
-- **Java** 21+ (se instala automáticamente si falta)
-- **curl** o **wget** (para descargas)
-- **Linux, macOS o WSL** en Windows
-
-### Instalación
+Abre una terminal en la carpeta donde descargaste el archivo y ejecuta:
 
 ```bash
-# 1. Clona el repositorio
-git clone https://github.com/NahuelGranollers/minecraft_auto_server.git
-cd minecraft_auto_server
-
-# 2. Dale permisos de ejecución
 chmod +x minecraft-server-setup.sh
-
-# 3. Ejecuta el script
-./minecraft-server-setup.sh
 ```
 
-### Primer Uso
+### 3️⃣ **Ejecutar el Script**
 
-El script te guiará paso a paso:
-
-1. **Selecciona versión** de Minecraft (rápido o submenu)
-2. **Elige tipo** de servidor (Vanilla, Paper, Forge)
-3. **Configuración rápida** (nombre, puerto, dificultad)
-4. **Configuración avanzada** (opcional - 20+ parámetros)
-5. **Descarga y configuración** automática
-6. **¿Iniciar ahora?** - El servidor se arranca automáticamente
-
----
-
-## 🎮 Pantallas de Ejemplo
-
-### Selección de Versión (Primaria)
-```
-════════════════════════════════════════
-Selecciona la Versión de Minecraft
-════════════════════════════════════════
-
-Versiones disponibles:
-  1) 1.21.10 (Última - Recomendado)
-  2) 1.21.8
-  3) 1.21.6
-  4) 1.21.4
-  5) 📂 Más versiones...
-
-Selecciona una opción (1-5): 5
-```
-
-### Submenu de Versiones
-```
-════════════════════════════════════════
-📂 MÁS VERSIONES DE MINECRAFT
-════════════════════════════════════════
-
-Selecciona una categoría:
-  1) Versión 1.20.x
-  2) Versión 1.19.x
-  3) Versión 1.18.x
-  4) Versión 1.17.x
-  5) Versión 1.16.x
-  6) Versión 1.15.x
-  7) Versión 1.14.x
-  8) Versión 1.12.x
-  9) Versión 1.11.x
-  10) Versión 1.10.x
-  0) Volver atrás
-
-Selecciona categoría (0-10): 5
-```
-
-### Selección en Categoría
-```
-════════════════════════════════════════
-Selecciona versión de 1.16.x
-════════════════════════════════════════
-
-Versiones disponibles:
-  1) 1.16.5
-  2) 1.16.4
-  3) 1.16.3
-  4) 1.16.2
-  5) 1.16.1
-  0) Volver
-
-Selecciona una versión: 1
-✓ Versión seleccionada: 1.16.5
-```
-
-### Configuración Avanzada
-```
-════════════════════════════════════════
-⚙️  CONFIGURACIÓN AVANZADA
-════════════════════════════════════════
-
-Selecciona un parámetro para editar:
-
-  1)  Nombre de carpeta contenedora   (Actual: minecraft_server)
-  2)  MOTD (Descripción servidor)     (Actual: Un Servidor de Minecraft)
-  3)  Nombre del mundo (nivel)        (Actual: world)
-  ...
-  20) RAM mínima del servidor         (Actual: 1GB)
-  21) RAM máxima del servidor         (Actual: 4GB)
-  22) Ver resumen actual
-  23) Volver al menú principal
-```
-
-### Mensaje de Compartir
-```
-╔════════════════════════════════════════════════════════════════╗
-║              ✅ SERVIDOR CONFIGURADO Y LISTO                  ║
-╚════════════════════════════════════════════════════════════════╝
-
-┌─ DATOS DE CONEXIÓN ─────────────────────────────────────────┐
-│                                                               │
-│  🌐 IP Pública      : 192.168.1.100                          │
-│  🔌 Puerto          : 25565                                  │
-│  👥 Máx Jugadores   : 20                                     │
-│  🎮 Modo            : Survival                               │
-│  ⚒️  Versión        : 1.16.5                                 │
-│  📝 MOTD            : Mi Servidor Epic                       │
-│                                                               │
-│  ✂️  COPIAR Y PEGAR A TUS AMIGOS:                            │
-│  ┌─────────────────────────────────────────────────────────┐ │
-│  │ 192.168.1.100:25565                                     │ │
-│  └─────────────────────────────────────────────────────────┘ │
-│                                                               │
-│  📌 INSTRUCCIONES PARA TUS AMIGOS:                           │
-│     1. Abre Minecraft Java Edition                          │
-│     2. Click en "Multijugador"                              │
-│     3. Click en "Servidor directo"                          │
-│     4. Pega: 192.168.1.100:25565                            │
-│     5. ¡Conecta!                                            │
-│                                                               │
-└─────────────────────────────────────────────────────────────┘
-```
-
----
-
-## ⚙️ Configuración Detallada
-
-### Parámetros Disponibles
-
-#### Básicos
-| Parámetro | Descripción | Default |
-|---|---|---|
-| **Carpeta contenedora** | Nombre principal del servidor | minecraft_server |
-| **MOTD** | Descripción en lista de servidores | Un Servidor de Minecraft |
-| **Nombre del mundo** | Carpeta del mundo/nivel | world |
-| **Puerto** | Puerto de conexión | 25565 |
-
-#### Gameplay
-| Parámetro | Descripción | Default |
-|---|---|---|
-| **Modo de juego** | survival/creative/adventure/spectator | survival |
-| **Dificultad** | peaceful/easy/normal/hard | easy |
-| **PvP** | Combate entre jugadores | true |
-| **Vuelo** | Permitir vuelo en modo no-creativo | false |
-
-#### Jugadores
-| Parámetro | Descripción | Default |
-|---|---|---|
-| **Máximo de jugadores** | Límite de conexiones | 20 |
-| **Modo online** | Verificación de cuentas Mojang | true |
-| **Lista blanca** | Solo jugadores autorizados | false |
-| **Protección spawn** | Radio de protección (bloques) | 16 |
-
-#### Mundo
-| Parámetro | Descripción | Default |
-|---|---|---|
-| **Semilla** | Semilla del mundo (vacío = aleatoria) | (aleatoria) |
-| **Distancia de visión** | Chunks visibles (3-32) | 10 |
-| **Altura máxima** | Límite de altura de construcción | 320 |
-
-#### Rendimiento
-| Parámetro | Descripción | Default |
-|---|---|---|
-| **RAM mínima** | RAM inicial asignada | 1 GB |
-| **RAM máxima** | RAM máxima permitida | 4 GB |
-
-#### Avanzado
-| Parámetro | Descripción | Default |
-|---|---|---|
-| **RCON** | Control remoto del servidor | false |
-| **Puerto RCON** | Puerto para RCON | 25575 |
-| **Bloques de comandos** | Bloques de comando funcionales | false |
-
----
-
-## 🗂️ Estructura de Carpetas
-
-```
-Tu carpeta de ejecución/
-│
-├── minecraft-server-setup.sh        # El script principal
-├── README.md                         # Este archivo
-├── icon.png                          # Icono predeterminado (descargado)
-│
-└── minecraft_server/                 # Carpeta del servidor (configurable)
-    ├── server.jar                    # Servidor Minecraft
-    ├── start.sh                      # Script de inicio
-    ├── eula.txt                      # Aceptación EULA
-    ├── server.properties             # Configuración del servidor
-    ├── server-icon.png               # Icono del servidor
-    ├── plugins/                      # Carpeta de plugins (si es Paper)
-    │
-    └── world/                        # Carpeta del mundo (configurable)
-        ├── level.dat                 # Datos del mundo
-        ├── region/                   # Regiones del mundo
-        └── ...
-```
-
----
-
-## 🚀 Cómo Iniciar el Servidor
-
-### Primera Vez
 ```bash
 ./minecraft-server-setup.sh
-# Sigue los pasos y selecciona "sí" cuando pregunte por iniciar
 ```
 
-### Posteriores
+**¡Eso es todo!** El script te guiará paso a paso.
+
+---
+
+## 📋 Requisitos Previos
+
+### Sistemas Soportados
+- ✅ **Linux** (Ubuntu, Debian, CentOS, etc.)
+- ✅ **macOS** (Intel y Apple Silicon)
+- ❌ Windows (usa WSL2 o Git Bash)
+
+### Requisitos Obligatorios
+
+1. **Java 21 o superior**
+   - El script intenta instalarlo automáticamente si no lo tienes
+   - Para verificar: `java -version`
+
+2. **curl** (para descargas)
+   - Generalmente ya está instalado
+   - Si no: `sudo apt install curl` (Linux) o `brew install curl` (macOS)
+
+3. **Conexión a Internet**
+   - Para descargar el servidor de Minecraft
+
+---
+
+## 🚀 Dos Modos de Uso
+
+### ⚡ Modo Rápido (Recomendado para Principiantes)
+
+El script configura **todo automáticamente** con valores por defecto:
+- Versión: **1.21.10** (última)
+- Tipo: **Vanilla** (oficial de Minecraft)
+- Modo: **Survival**
+- RAM: **1GB mín - 4GB máx**
+- Jugadores: **20 máximo**
+- Puerto: **25565**
+
+**Tiempo:** ~30 segundos
+
+```
+1️⃣ Selecciona: 1
+2️⃣ ✓ Configura automáticamente
+3️⃣ ¿Iniciar servidor? s
+```
+
+### 🔧 Modo Experto (Para Personalización Avanzada)
+
+Personaliza todo aspecto del servidor:
+- **Versión:** Elige entre 1.10 a 1.21
+- **Tipo:** Vanilla / Paper (optimizado) / Forge (con mods)
+- **RAM:** Configura consumo de memoria
+- **25+ Parámetros:** Dificultad, gamemode, distancia de visión, etc.
+
+**Tiempo:** ~2-5 minutos
+
+```
+1️⃣ Selecciona: 2
+2️⃣ Elige versión y tipo
+3️⃣ Configuración básica
+4️⃣ ¿Configuración avanzada? s
+5️⃣ Personaliza los 25+ parámetros
+```
+
+---
+
+## 💡 Recomendación de RAM
+
+El script incluye una **guía inteligente** de RAM según jugadores:
+
+| Jugadores | RAM Mínima | RAM Máxima |
+|-----------|-----------|-----------|
+| 1-5 | 1 GB | 2-3 GB |
+| 5-15 | 2 GB | 4-6 GB |
+| 15-30 | 4 GB | 8 GB |
+| 30+ | 6-8 GB | 12-16+ GB |
+
+**Ver la tabla:** En Modo Experto, opción 13 "Ver recomendación RAM"
+
+---
+
+## 📡 Compartir el Servidor con Amigos
+
+Después de configurar, el script muestra:
+
+```
+🎯 SERVIDOR LISTO - DATOS DE CONEXIÓN
+╔════════════════════════════════════════╗
+║  ✅ SERVIDOR CONFIGURADO Y LISTO      ║
+╚════════════════════════════════════════╝
+
+Dirección: 212.97.95.46:25565
+```
+
+**Comparte esta dirección con tus amigos.**
+
+### ⚙️ Cómo Abrirlo en el Router
+
+El script te mostrará una **guía paso a paso**, pero aquí está el resumen:
+
+1. **Accede a tu router:**
+   - Abre: `http://192.168.1.1` o `http://192.168.0.1`
+   - Usuario/Contraseña: `admin/admin` (o consulta tu router)
+
+2. **Busca "Port Forwarding" o "Reenvío de puertos"**
+
+3. **Crea una regla:**
+   - Puerto externo: `25565`
+   - Puerto interno: `25565`
+   - Protocolo: `TCP/UDP`
+   - IP local: `192.168.x.x` (tu IP privada)
+
+4. **Guarda y reinicia el router**
+
+### 🎮 Cómo se Conectan tus Amigos
+
+En **Minecraft Java Edition**:
+
+1. Click en **"Multijugador"**
+2. Click en **"Servidor directo"**
+3. Pega la dirección: `212.97.95.46:25565`
+4. ¡Conecta!
+
+---
+
+## 📁 Estructura de Carpetas
+
+Después de ejecutar el script, se crea:
+
+```
+tu_carpeta/
+├── minecraft-server-setup.sh (el script)
+└── minecraft_server/
+    ├── server.jar (servidor descargado)
+    ├── server.properties (configuración)
+    ├── eula.txt (aceptación de términos)
+    ├── start.sh (script para iniciar)
+    ├── world/ (tu mundo)
+    ├── logs/
+    └── plugins/ (si usas Paper)
+```
+
+---
+
+## 🎮 Iniciar/Parar el Servidor
+
+### Iniciar Automáticamente
+
+El script te pregunta al final: **"¿Iniciar el servidor ahora?"**
+- Si dices **SÍ**: Se inicia inmediatamente
+- Si dices **NO**: Puedes iniciarlo después
+
+### Iniciar Manualmente
+
 ```bash
 cd minecraft_server
 ./start.sh
 ```
 
-### Detener el Servidor
+### Parar el Servidor
+
+En la terminal donde corre el servidor:
+```
+Escribe: stop
+Presiona: Enter
+```
+
+---
+
+## ⚙️ Parámetros Avanzados (Modo Experto)
+
+| Parámetro | Descripción | Valores |
+|-----------|-------------|---------|
+| MOTD | Descripción del servidor | Texto libre |
+| Puerto | Puerto de conexión | 1-65535 |
+| Gamemode | Modo de juego | survival / creative / adventure / spectator |
+| Dificultad | Nivel de dificultad | peaceful / easy / normal / hard |
+| Máx. Jugadores | Límite de conexiones | Número |
+| Modo online | Verificación de licencia | true / false |
+| PvP | Combate entre jugadores | true / false |
+| Distancia visión | Chunks renderizados | 3-32 |
+| Permitir Nether | Acceso al Nether | true / false |
+| Permitir End | Acceso al End | true / false |
+| Permitir vuelo | Flying mode | true / false |
+
+---
+
+## 🔧 Solución de Problemas
+
+### ❌ "No se puede ejecutar el script"
+
+**Solución:**
 ```bash
-# En el cliente de Minecraft: /stop
-# O en la terminal: Ctrl+C
+chmod +x minecraft-server-setup.sh
 ```
 
----
+### ❌ "Java no está instalado"
 
-## 🔌 Conectar Amigos
+**El script intenta instalarlo automáticamente.** Si falla:
 
-### Conexión Local (Mismo WiFi/Red)
-1. Usa la **IP Privada** mostrada: `192.168.1.X`
-2. Tus amigos se conectan con: `192.168.1.X:25565`
-
-### Conexión Remota (Internet)
-1. **Abre el puerto en el router:**
-   - Accede a la configuración del router
-   - Busca "Port Forwarding"
-   - Reenvía puerto 25565 a tu IP local
-2. **Comparte la IP Pública** mostrada por el script
-3. Tus amigos se conectan con: `IP_PÚBLICA:25565`
-
-### Pasos en Minecraft
-1. Minecraft Java Edition
-2. Multijugador
-3. Servidor directo
-4. Pega: `IP:PUERTO`
-5. ¡Conecta!
-
----
-
-## 📦 Tipos de Servidor
-
-### Vanilla
-- **Descripción:** Servidor oficial de Minecraft sin modificaciones
-- **Ventajas:** Ligero, rápido, estable
-- **Desventajas:** Sin plugins ni mods
-- **Uso:** Supervivencia pura
-
-### Paper
-- **Descripción:** Servidor basado en Spigot, optimizado
-- **Ventajas:** Mejor rendimiento, soporta plugins
-- **Desventajas:** Requiere configuración de plugins
-- **Uso:** SMP con customización
-
-### Forge
-- **Descripción:** Servidor con soporte para mods
-- **Ventajas:** Libertad creativa con mods
-- **Desventajas:** Instalación manual, mayor consumo de recursos
-- **Uso:** Modpacks y experiencias customizadas
-
----
-
-## 💾 Resumen de Configuración
-
-Después de configurar, el script genera un resumen:
-
-```
-════════════════════════════════════════
-¡Configuración Completada!
-════════════════════════════════════════
-
-📁 Estructura de Carpetas:
-   Carpeta contenedora: minecraft_server
-   Ruta completa      : /ruta/minecraft_server
-   Mundo (nivel)      : /ruta/minecraft_server/world
-
-🎮 Configuración del servidor:
-   Tipo: Paper
-   Versión: 1.16.5
-   MOTD (Descripción): Mi Servidor Epic
-   Modo: Survival
-   Dificultad: Normal
-   Jugadores máximo: 20
-   Puerto: 25565
-   Modo online: true
-
-💾 Configuración de Memoria:
-   RAM mínima: 1GB
-   RAM máxima: 8GB
-
-🌐 Información de Red:
-   IP Privada (localhost): 192.168.1.100:25565
-   IP Pública (amigos): 203.0.113.45:25565
-```
-
----
-
-## ⚡ Optimizaciones Incluidas
-
-### Rendimiento
-- ✅ Control automático de distancia de visión
-- ✅ Asignación optimizada de RAM
-- ✅ Garbage collector mejorado en Java
-- ✅ Recomendaciones según hardware
-
-### Seguridad
-- ✅ EULA automático
-- ✅ Protección de spawn
-- ✅ Lista blanca disponible
-- ✅ RCON con contraseña
-
-### Usabilidad
-- ✅ Validación completa de entradas
-- ✅ Mensajes de error claros
-- ✅ Reintentos automáticos de descarga
-- ✅ Resúmenes y confirmaciones
-
----
-
-## 🐛 Solución de Problemas
-
-### Error: "Java no está instalado"
+**Linux (Ubuntu/Debian):**
 ```bash
-# Opción 1: El script lo instala automáticamente
-# Opción 2: Instala manualmente
-sudo apt install openjdk-21-jdk  # Ubuntu/Debian
-brew install openjdk@21          # macOS
+sudo apt update && sudo apt install openjdk-21-jdk -y
 ```
 
-### Error: "Puerto ya en uso"
+**macOS:**
 ```bash
-# Cambia el puerto en configuración avanzada
-# O usa uno disponible: 25566, 25567, etc.
+brew install openjdk@21
 ```
 
-### Conexión rechazada desde Internet
-1. Verifica que el puerto esté abierto en el router
-2. Comprueba que la IP pública sea correcta
-3. Desactiva firewall temporalmente para probar
-4. Usa la IP privada si están en la misma red
+### ❌ "curl: command not found"
 
-### Servidor muy lento
-1. Aumenta la RAM máxima (configuración avanzada)
-2. Reduce la distancia de visión
-3. Limita máximo de jugadores
-4. Usa Paper en lugar de Vanilla
-
-### El mundo no se carga
+**Linux:**
 ```bash
-# Verifica que la carpeta del mundo existe
-cd minecraft_server
-ls -la  # Busca la carpeta del nivel
-
-# Si falta, el servidor la crea automáticamente en el siguiente inicio
+sudo apt install curl -y
 ```
 
----
-
-## 📝 Recomendaciones
-
-### Para 1-5 Jugadores
-```
-RAM mínima: 1 GB
-RAM máxima: 2-3 GB
-Distancia de visión: 8 chunks
-Tipo: Vanilla o Paper
-Versión recomendada: 1.21.10 (última)
-```
-
-### Para 5-15 Jugadores
-```
-RAM mínima: 2 GB
-RAM máxima: 4-6 GB
-Distancia de visión: 10 chunks
-Tipo: Paper (recomendado)
-Versión recomendada: 1.21.10 o 1.20.4
-```
-
-### Para 15+ Jugadores
-```
-RAM mínima: 4 GB
-RAM máxima: 8-12 GB
-Distancia de visión: 8-10 chunks
-Tipo: Paper + Plugins de optimización
-Versión recomendada: 1.21.10 o 1.20.4
-```
-
-### Versiones por Caso de Uso
-
-| Caso | Versión Recomendada | Motivo |
-|---|---|---|
-| Última & Mayor | 1.21.10 | Características nuevas |
-| Estable & Popular | 1.20.4 | Buena adopción comunitaria |
-| Legacy & Mods | 1.16.5 | Muchos mods disponibles |
-| Supervivencia pura | 1.21.10 | Mejoras de contenido |
-
----
-
-## 🎨 Personalización
-
-### Cambiar Icono
-1. Reemplaza `server-icon.png` en la carpeta del servidor
-2. Debe ser 64x64 píxeles (PNG)
-3. El servidor la detecta automáticamente
-
-### Cambiar MOTD
+**macOS:**
 ```bash
-# Edita server.properties
-vi server.properties
-
-# Busca: motd=Tu Descripción
-# Cambia a: motd=Nueva Descripción
+brew install curl
 ```
 
-### Cambiar Dificultad en Vivo
+### ❌ "El servidor se cierra al iniciar"
+
+**Verifica:**
+1. ¿Tienes Java 21+? → `java -version`
+2. ¿Hay suficiente RAM en tu máquina?
+3. Revisa el archivo: `minecraft_server/logs/latest.log`
+
+### ❌ "No puedo conectarme desde internet"
+
+**Pasos:**
+1. ¿Abriste el puerto en el router? (Ver sección Port Forwarding)
+2. ¿Esperaste 5 minutos después de configurar? (El router necesita tiempo)
+3. ¿Estás usando la IP pública correcta? → `curl ifconfig.me`
+
+### ❌ "El servidor va lento"
+
+**Soluciones:**
+1. Aumenta RAM: Opción 15 en Modo Experto
+2. Reduce distancia de visión: Opción 16
+3. Reduce número de jugadores: Opción 8
+
+---
+
+## 📊 Versiones de Minecraft Soportadas
+
+El script soporta **todas las versiones desde 1.10 a 1.21**:
+
+**Recomendadas:**
+- 🟢 **1.21.10** (Última - Recomendada)
+- 🟢 **1.20.4** (Estable)
+- 🟢 **1.19.2** (Clásico)
+
+**En Modo Experto** puedes seleccionar cualquier versión del histórico.
+
+---
+
+## 🖥️ Tipos de Servidor
+
+### Vanilla (Oficial)
+- 🎮 Experiencia oficial de Minecraft
+- ✅ Sin mods ni plugins
+- 💡 Perfecto para principiantes
+
+### Paper (Optimizado)
+- 🚀 Mejor rendimiento
+- ✅ Soporta plugins
+- 🔧 Ideal para servidores con muchos jugadores
+
+### Forge (Con Mods)
+- 🎨 Soporta modificaciones
+- ⚠️ Requiere manual setup (ver: https://files.minecraftforge.net)
+
+---
+
+## 💾 Configuraciones Guardadas
+
+El script guarda todas tus configuraciones en:
+- **server.properties:** Configuración del servidor
+- **start.sh:** Script personalizado para iniciar
+- **setup_debug.log:** Registro de configuración
+
+**Puedes editar estas archivos manualmente** si lo necesitas.
+
+---
+
+## 🆘 Obtener Ayuda
+
+### Archivo de Log
+
+Si hay un problema, revisa:
 ```bash
-# En el chat del servidor:
-/difficulty hard
+cat setup_debug.log
 ```
 
-### Agregar Plugins (Paper)
-1. Descarga plugins .jar
-2. Copia a `minecraft_server/plugins/`
-3. Reinicia con `/stop` y `./start.sh`
+### Commandos Útiles
+
+```bash
+# Ver consola del servidor
+tail -f minecraft_server/logs/latest.log
+
+# Ver procesos de Java
+ps aux | grep java
+
+# Ver puertos abiertos
+netstat -tlnp | grep java
+```
 
 ---
 
-## 📚 Recursos Útiles
+## 📝 Comandos del Servidor (In-Game)
 
-- 🎮 [Minecraft.net](https://www.minecraft.net)
-- 📖 [Wiki Minecraft](https://minecraft.wiki)
-- 📦 [PaperMC](https://papermc.io)
-- 🔧 [SpigotMC](https://www.spigotmc.org)
-- 🌐 [Curse Forge](https://www.curseforge.com)
-- 📋 [Minecraft Server Properties](https://minecraft.fandom.com/wiki/Server.properties)
+Una vez dentro del servidor, puedes usar:
+
+```
+/stop - Parar el servidor
+/save-all - Guardar mundo
+/say [mensaje] - Mensaje global
+/difficulty [nivel] - Cambiar dificultad
+/gamemode [modo] [jugador] - Cambiar gamemode
+/whitelist add [jugador] - Agregar a whitelist
+/op [jugador] - Dar permisos de admin
+```
 
 ---
 
-## 📄 Licencia
+## 🔐 Seguridad
 
-Este proyecto está bajo la licencia **MIT**.
-
-```
-Copyright © 2025 Nahuel Granollers
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction...
-```
-
-Ver [LICENSE](LICENSE) para más detalles.
+**Recomendaciones:**
+- ✅ Usa contraseña fuerte en tu router
+- ✅ Mantén Java actualizado
+- ✅ Revisa regularmente el archivo de logs
+- ✅ Solo comparte IP con gente de confianza
+- ✅ Considera usar lista blanca (whitelist) si tienes servidor público
 
 ---
 
-## 👤 Autor
+## 📜 Licencia
+
+Este script es de código abierto. Úsalo libremente.
+
+**Minecraft es propiedad de Mojang Studios.**
+
+---
+
+## 👨‍💻 Autor
 
 **Nahuel Granollers**
-- 🌐 [nahuelgranollers.com](https://nahuelgranollers.com)
-- 💻 [GitHub](https://github.com/NahuelGranollers)
-- 🎬 Motion Designer & Web Developer
+- 🌐 Portfolio: https://nahuelgranollers.com
+- 🐙 GitHub: https://github.com/NahuelGranollers
+- 📧 Email: contacto@nahuelgranollers.com
+
+**v3.10** - Noviembre 2025
 
 ---
 
-## 🤝 Contribuciones
+## 🎉 ¡Ya está Listo!
 
-¿Tienes ideas para mejorar? ¡Las contribuciones son bienvenidas!
+**Próximos pasos:**
 
-1. Fork el proyecto
-2. Crea una rama (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+1. Descarga el script
+2. Ejecuta: `./minecraft-server-setup.sh`
+3. Elige Modo Rápido (opción 1) o Experto (opción 2)
+4. Comparte la IP con tus amigos
+5. ¡Que disfruten el servidor!
 
----
+**Cualquier pregunta, revisa esta guía o el archivo `setup_debug.log`**
 
-## ⭐ Si Te Gusta, ¡Dale una Estrella!
-
-```
-⭐ ← Presiona aquí arriba
-```
-
-Esto ayuda a más personas a encontrar el proyecto.
-
----
-
-## 📞 Soporte
-
-¿Necesitas ayuda?
-
-- 📧 Abre un [Issue](https://github.com/NahuelGranollers/minecraft_auto_server/issues)
-- 💬 Crea una [Discusión](https://github.com/NahuelGranollers/minecraft_auto_server/discussions)
-- 🐦 Sígueme en redes sociales
-
----
-
-**Hecho con ❤️ por [Nahuel Granollers](https://nahuelgranollers.com)**
-
----
-
-## 🎯 Roadmap Futuro
-
-- [ ] Interfaz gráfica (GUI)
-- [ ] Gestor de backups automático
-- [ ] Plugin manager integrado
-- [ ] Monitor de rendimiento en vivo
-- [ ] Actualizaciones automáticas de servidor
-- [ ] Soporte para Windows (nativo)
-- [ ] Estadísticas y logs detallados
-- [ ] Web dashboard de administración
-- [ ] Multi-servidor en una máquina
-- [ ] Importar mundos existentes
-
----
-
-## 📊 Estadísticas del Script
-
-- **Versiones soportadas:** 32+ versiones de Minecraft
-- **Líneas de código:** 1000+
-- **Funciones implementadas:** 40+
-- **Parámetros configurables:** 20+
-- **Compatibilidad:** Linux, macOS, WSL Windows
-
----
-
-**Última actualización:** 12 de Noviembre de 2025 | **Versión:** 3.1
+¡Bienvenido al mundo de los servidores Minecraft! 🎮✨
