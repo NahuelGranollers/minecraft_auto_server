@@ -31,7 +31,7 @@ JAVA_VERSION="21"
 PUBLIC_IP=""
 PRIVATE_IP=""
 USER_AGENT="MinecraftServerSetup/3.1 (+https://github.com/NahuelGranollers/minecraft_auto_server)"
-ICON_URL="https://raw.githubusercontent.com/NahuelGranollers/minecraft_auto_server/refs/heads/main/icon.png"
+ICON_URL="https://raw.githubusercontent.com/NahuelGranollers/minecraft_auto_server/refs/heads/main/server_icon/icon.png"
 
 # Arrays de versiones disponibles
 declare -a VERSIONS_LATEST=("1.21.10" "1.21.8" "1.21.6" "1.21.4" "1.20.1")
