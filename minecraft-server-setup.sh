@@ -313,9 +313,6 @@ select_basic_config() {
     read -p "MOTD (Descripción del servidor) [default: '$MOTD']: " input
     [[ -n "$input" ]] && MOTD="$input"
     
-    read -p "Nombre del mundo (nivel) [default: '$LEVEL_NAME']: " input
-    [[ -n "$input" ]] && LEVEL_NAME="$input"
-    
     read -p "Número máximo de jugadores [default: $MAX_PLAYERS]: " input
     if [[ -n "$input" ]]; then
         if [[ "$input" =~ ^[0-9]+$ ]]; then
@@ -996,15 +993,6 @@ print_final_info() {
     echo "   RAM mínima: ${MIN_RAM}GB"
     echo "   RAM máxima: ${MAX_RAM}GB"
     
-    echo -e "\n🌐 ${BLUE}Información de Red:${NC}"
-    echo "   IP Privada (localhost): $PRIVATE_IP:$SERVER_PORT"
-    echo "   IP Pública (amigos): $PUBLIC_IP:$SERVER_PORT"
-    
-    echo -e "\n📝 ${BLUE}Próximos pasos:${NC}"
-    echo "   1. Ejecuta: cd $SERVER_DIR && ./start.sh"
-    echo "   2. Espera a que aparezca el mensaje 'Done!'"
-    echo "   3. Conecta desde Minecraft con: localhost (local) o $PUBLIC_IP (remoto)"
-    
     if [[ "$SERVER_TYPE" == "paper" ]]; then
         echo -e "\n📦 ${BLUE}Para instalar plugins:${NC}"
         echo "   1. Descarga archivos .jar de plugins"
@@ -1016,7 +1004,11 @@ print_final_info() {
     echo "   • Abre el puerto $SERVER_PORT en tu router (Port Forwarding)"
     echo "   • Comparte tu IP pública: $PUBLIC_IP"
     echo "   • Configura un firewall permitiendo el puerto"
-    
+
+    echo -e "\n🌐 ${BLUE}Información de Red:${NC}"
+    echo "   IP Privada (localhost): $PRIVATE_IP:$SERVER_PORT"
+    echo "   IP Pública (amigos): $PUBLIC_IP:$SERVER_PORT"
+ 
     echo ""
 }
 
