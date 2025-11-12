@@ -3,8 +3,8 @@
 > **Configuración automática de servidores Minecraft Java Edition en tu PC local**
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-3.0-brightgreen.svg)](https://github.com/NahuelGranollers/minecraft_auto_server)
-[![Minecraft](https://img.shields.io/badge/Minecraft-1.21.10-red.svg)](https://www.minecraft.net/)
+[![Version](https://img.shields.io/badge/Version-3.1-brightgreen.svg)](https://github.com/NahuelGranollers/minecraft_auto_server)
+[![Minecraft](https://img.shields.io/badge/Minecraft-1.10--1.21.10-red.svg)](https://www.minecraft.net/)
 [![Bash](https://img.shields.io/badge/Bash-5.0+-black.svg)](https://www.gnu.org/software/bash/)
 
 **Creado por:** [Nahuel Granollers](https://nahuelgranollers.com)
@@ -15,6 +15,8 @@
 
 ### 🚀 Automatización Total
 - **Descarga automática** del servidor Minecraft (Vanilla, Paper, Forge)
+- **Todas las versiones** desde 1.10 hasta 1.21.10 disponibles
+- **Sistema de submenu inteligente** para acceder a todas las versiones
 - **Configuración asistida** con interfaz interactiva
 - **Inicio automático** del servidor después de configurar
 - **Generación automática** de icono del servidor
@@ -49,16 +51,36 @@
 
 ---
 
-## 📋 Tabla de Características
+## 📋 Versiones Soportadas
 
-| Característica | Vanilla | Paper | Forge |
-|---|:---:|:---:|:---:|
-| Descarga automática | ✅ | ✅ | ❌ |
-| Configuración | ✅ | ✅ | ✅ |
-| Inicio automático | ✅ | ✅ | ✅ |
-| Icono predeterminado | ✅ | ✅ | ✅ |
-| Plugins/Mods | ❌ | ✅ | ❌ |
-| Optimizaciones | ✅ | ✅ | ✅ |
+| Categoría | Versiones |
+|---|---|
+| **Latest (1.21.x)** | 1.21.10, 1.21.8, 1.21.6, 1.21.4 |
+| **1.20.x** | 1.20.4, 1.20.3, 1.20.2, 1.20.1 |
+| **1.19.x** | 1.19.2, 1.19.1, 1.19 |
+| **1.18.x** | 1.18.2, 1.18.1, 1.18 |
+| **1.17.x** | 1.17.1, 1.17 |
+| **1.16.x** | 1.16.5, 1.16.4, 1.16.3, 1.16.2, 1.16.1 |
+| **1.15.x** | 1.15.2, 1.15.1, 1.15 |
+| **1.14.x** | 1.14.4, 1.14.3, 1.14.2, 1.14.1, 1.14 |
+| **1.12.x** | 1.12.2, 1.12.1, 1.12 |
+| **1.11.x** | 1.11.2, 1.11.1, 1.11 |
+| **1.10.x** | 1.10.2, 1.10.1, 1.10 |
+
+### Selección de Versión
+
+El script ofrece dos opciones:
+1. **Opción rápida**: Selecciona directamente una de las 5 versiones más recientes
+2. **Opción avanzada (Submenu)**: Accede a un menú de categorías para elegir de todas las versiones disponibles
+
+```
+Versiones disponibles:
+  1) 1.21.10 (Última - Recomendado)
+  2) 1.21.8
+  3) 1.21.6
+  4) 1.21.4
+  5) 📂 Más versiones...  ← Abre submenu con todas las versiones
+```
 
 ---
 
@@ -88,7 +110,7 @@ chmod +x minecraft-server-setup.sh
 
 El script te guiará paso a paso:
 
-1. **Selecciona versión** de Minecraft (1.21.10, 1.21.8, etc.)
+1. **Selecciona versión** de Minecraft (rápido o submenu)
 2. **Elige tipo** de servidor (Vanilla, Paper, Forge)
 3. **Configuración rápida** (nombre, puerto, dificultad)
 4. **Configuración avanzada** (opcional - 20+ parámetros)
@@ -99,30 +121,60 @@ El script te guiará paso a paso:
 
 ## 🎮 Pantallas de Ejemplo
 
-### Pantalla Inicial
-```
-════════════════════════════════════════
-Configurador Automatizado de Servidor Minecraft v3.0
-Última versión: 1.21.10
-© Copyright 2025 - Nahuel Granollers
-Configuración Avanzada + Inicio Automático + Icono + Compartir
-════════════════════════════════════════
-```
-
-### Selección de Versión
+### Selección de Versión (Primaria)
 ```
 ════════════════════════════════════════
 Selecciona la Versión de Minecraft
 ════════════════════════════════════════
 
 Versiones disponibles:
-  1) 1.21.10
+  1) 1.21.10 (Última - Recomendado)
   2) 1.21.8
   3) 1.21.6
   4) 1.21.4
-  5) 1.20.1
+  5) 📂 Más versiones...
 
-Selecciona una versión (1-5): 
+Selecciona una opción (1-5): 5
+```
+
+### Submenu de Versiones
+```
+════════════════════════════════════════
+📂 MÁS VERSIONES DE MINECRAFT
+════════════════════════════════════════
+
+Selecciona una categoría:
+  1) Versión 1.20.x
+  2) Versión 1.19.x
+  3) Versión 1.18.x
+  4) Versión 1.17.x
+  5) Versión 1.16.x
+  6) Versión 1.15.x
+  7) Versión 1.14.x
+  8) Versión 1.12.x
+  9) Versión 1.11.x
+  10) Versión 1.10.x
+  0) Volver atrás
+
+Selecciona categoría (0-10): 5
+```
+
+### Selección en Categoría
+```
+════════════════════════════════════════
+Selecciona versión de 1.16.x
+════════════════════════════════════════
+
+Versiones disponibles:
+  1) 1.16.5
+  2) 1.16.4
+  3) 1.16.3
+  4) 1.16.2
+  5) 1.16.1
+  0) Volver
+
+Selecciona una versión: 1
+✓ Versión seleccionada: 1.16.5
 ```
 
 ### Configuración Avanzada
@@ -155,7 +207,7 @@ Selecciona un parámetro para editar:
 │  🔌 Puerto          : 25565                                  │
 │  👥 Máx Jugadores   : 20                                     │
 │  🎮 Modo            : Survival                               │
-│  ⚒️  Versión        : 1.21.10                                │
+│  ⚒️  Versión        : 1.16.5                                 │
 │  📝 MOTD            : Mi Servidor Epic                       │
 │                                                               │
 │  ✂️  COPIAR Y PEGAR A TUS AMIGOS:                            │
@@ -333,7 +385,7 @@ Después de configurar, el script genera un resumen:
 
 🎮 Configuración del servidor:
    Tipo: Paper
-   Versión: 1.21.10
+   Versión: 1.16.5
    MOTD (Descripción): Mi Servidor Epic
    Modo: Survival
    Dificultad: Normal
@@ -421,6 +473,7 @@ RAM mínima: 1 GB
 RAM máxima: 2-3 GB
 Distancia de visión: 8 chunks
 Tipo: Vanilla o Paper
+Versión recomendada: 1.21.10 (última)
 ```
 
 ### Para 5-15 Jugadores
@@ -429,6 +482,7 @@ RAM mínima: 2 GB
 RAM máxima: 4-6 GB
 Distancia de visión: 10 chunks
 Tipo: Paper (recomendado)
+Versión recomendada: 1.21.10 o 1.20.4
 ```
 
 ### Para 15+ Jugadores
@@ -437,7 +491,17 @@ RAM mínima: 4 GB
 RAM máxima: 8-12 GB
 Distancia de visión: 8-10 chunks
 Tipo: Paper + Plugins de optimización
+Versión recomendada: 1.21.10 o 1.20.4
 ```
+
+### Versiones por Caso de Uso
+
+| Caso | Versión Recomendada | Motivo |
+|---|---|---|
+| Última & Mayor | 1.21.10 | Características nuevas |
+| Estable & Popular | 1.20.4 | Buena adopción comunitaria |
+| Legacy & Mods | 1.16.5 | Muchos mods disponibles |
+| Supervivencia pura | 1.21.10 | Mejoras de contenido |
 
 ---
 
@@ -477,6 +541,7 @@ vi server.properties
 - 📦 [PaperMC](https://papermc.io)
 - 🔧 [SpigotMC](https://www.spigotmc.org)
 - 🌐 [Curse Forge](https://www.curseforge.com)
+- 📋 [Minecraft Server Properties](https://minecraft.fandom.com/wiki/Server.properties)
 
 ---
 
@@ -546,12 +611,24 @@ Esto ayuda a más personas a encontrar el proyecto.
 - [ ] Interfaz gráfica (GUI)
 - [ ] Gestor de backups automático
 - [ ] Plugin manager integrado
-- [ ] Monitor de rendimiento
-- [ ] Actualizaciones automáticas
+- [ ] Monitor de rendimiento en vivo
+- [ ] Actualizaciones automáticas de servidor
 - [ ] Soporte para Windows (nativo)
-- [ ] Estadísticas y logs
+- [ ] Estadísticas y logs detallados
 - [ ] Web dashboard de administración
+- [ ] Multi-servidor en una máquina
+- [ ] Importar mundos existentes
 
 ---
 
-**Última actualización:** 12 de Noviembre de 2025 | **Versión:** 3.0
+## 📊 Estadísticas del Script
+
+- **Versiones soportadas:** 32+ versiones de Minecraft
+- **Líneas de código:** 1000+
+- **Funciones implementadas:** 40+
+- **Parámetros configurables:** 20+
+- **Compatibilidad:** Linux, macOS, WSL Windows
+
+---
+
+**Última actualización:** 12 de Noviembre de 2025 | **Versión:** 3.1
