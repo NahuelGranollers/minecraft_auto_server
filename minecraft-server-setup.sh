@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #############################################################################
-# Script de Configuración Automatizada de Servidor Minecraft (v3.10)
+# Script de Configuración Automatizada de Servidor Minecraft (v3.11)
 # Descarga, configura e inicia un servidor Minecraft Java Edition
 # Compatible con: Vanilla, Paper, Forge
 #
@@ -31,7 +31,7 @@ SERVER_FOLDER_NAME="minecraft_server"
 JAVA_VERSION="21"
 PUBLIC_IP=""
 PRIVATE_IP=""
-USER_AGENT="MinecraftServerSetup/3.10 (+https://github.com/NahuelGranollers/minecraft_auto_server)"
+USER_AGENT="MinecraftServerSetup/3.11 (+https://github.com/NahuelGranollers/minecraft_auto_server)"
 ICON_URL="https://raw.githubusercontent.com/NahuelGranollers/minecraft_auto_server/refs/heads/main/server_icon/icon.png"
 OPERATION_MODE="expert"
 LOG_FILE="$SCRIPT_DIR/setup_debug.log"
@@ -211,52 +211,20 @@ recommend_ram_by_value() {
 #############################################################################
 
 check_java() {
-    print_header "Verificando Instalación de Java"
     if command -v java &> /dev/null; then
-        JAVA_VERSION_INSTALLED=$(java -version 2>&1 | grep -oP '(?<=\")[0-9]+' | head -1 || echo "desconocida")
+        JAVA_VERSION_INSTALLED=$(java -version 2>&1 | grep -oE '[0-9]{1,2}' | head -1 || echo "0")
         print_success "Java $JAVA_VERSION_INSTALLED encontrado"
         debug_log "Java version detected: $JAVA_VERSION_INSTALLED"
         if [[ $JAVA_VERSION_INSTALLED -ge 21 ]]; then
             print_success "Java version es compatible (≥ 21)"
             return 0
         else
-            print_warning "Java $JAVA_VERSION_INSTALLED es inferior a 21, se recomienda actualizar"
+            print_warning "Java $JAVA_VERSION_INSTALLED es inferior a 21"
             return 1
         fi
     else
         print_error "Java no está instalado"
         return 1
-    fi
-}
-
-install_java() {
-    print_header "Instalando Java 21"
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        if command -v apt &> /dev/null; then
-            print_info "Detectado sistema Debian/Ubuntu"
-            sudo apt update
-            sudo apt install -y openjdk-21-jdk
-            print_success "Java 21 instalado correctamente"
-        elif command -v yum &> /dev/null; then
-            print_info "Detectado sistema RedHat/CentOS"
-            sudo yum install -y java-21-openjdk java-21-openjdk-devel
-            print_success "Java 21 instalado correctamente"
-        else
-            print_error "Gestor de paquetes no reconocido. Instala Java 21 manualmente"
-            exit 1
-        fi
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        print_info "Detectado macOS"
-        if command -v brew &> /dev/null; then
-            brew install openjdk@21
-            print_success "Java 21 instalado correctamente"
-        else
-            print_error "Homebrew no encontrado. Instala Homebrew primero: https://brew.sh"
-            exit 1
-        fi
-    else
-        print_error "Sistema operativo no soportado automáticamente"
-        exit 1
     fi
 }
 
@@ -296,7 +264,7 @@ get_network_info() {
 #############################################################################
 
 select_operation_mode() {
-    print_header "🎮 MINECRAFT AUTO SERVER SETUP v3.10"
+    print_header "🎮 MINECRAFT AUTO SERVER SETUP v3.11"
     echo "Elige cómo configurar tu servidor:"
     echo "  1) ⚡ Modo Rápido (30 segundos)"
     echo "  2) 🔧 Modo Experto (personalización completa)"
@@ -910,13 +878,15 @@ setup_rapido_mode() {
 
 main() {
     > "$LOG_FILE"
-    debug_log "Script started - Version 3.10"
+    debug_log "Script started - Version 3.11"
     clear
-    print_header "Configurador Auto Minecraft v3.10"
+    print_header "Configurador Auto Minecraft v3.11"
     echo -e "${MAGENTA}© 2025 - Nahuel Granollers${NC}"
     select_operation_mode
     if ! check_java; then
-        install_java
+        print_error "Java 21+ es requerido."
+        print_warning "Descarga Java desde: https://adoptium.net/es/temurin/releases/?version=21"
+        exit 1
     fi
     get_network_info
     if [[ "$OPERATION_MODE" == "rapido" ]]; then
