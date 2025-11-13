@@ -1,9 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #############################################################################
-# Script de Configuración Automatizada de Servidor Minecraft (v3.12)
+# Script de Configuración Automatizada de Servidor Minecraft (v3.13)
 # Descarga, configura e inicia un servidor Minecraft Java Edition
 # Compatible con: Vanilla, Paper, Forge
+# Compatible con Bash 3.x (macOS antiguo) y Bash 4+
 #
 # MODO RÁPIDO: 100% automático, sin pausas
 # MODO EXPERTO: Personalización completa con consejos inteligentes
@@ -31,23 +32,23 @@ SERVER_FOLDER_NAME="minecraft_server"
 JAVA_VERSION="21"
 PUBLIC_IP=""
 PRIVATE_IP=""
-USER_AGENT="MinecraftServerSetup/3.12 (+https://github.com/NahuelGranollers/minecraft_auto_server)"
+USER_AGENT="MinecraftServerSetup/3.13 (+https://github.com/NahuelGranollers/minecraft_auto_server)"
 ICON_URL="https://raw.githubusercontent.com/NahuelGranollers/minecraft_auto_server/refs/heads/main/server_icon/icon.png"
 OPERATION_MODE="expert"
 LOG_FILE="$SCRIPT_DIR/setup_debug.log"
 
-# Arrays de versiones
-declare -a VERSIONS_1_21=("1.21.10" "1.21.8" "1.21.6" "1.21.4")
-declare -a VERSIONS_1_20=("1.20.4" "1.20.3" "1.20.2" "1.20.1")
-declare -a VERSIONS_1_19=("1.19.2" "1.19.1" "1.19")
-declare -a VERSIONS_1_18=("1.18.2" "1.18.1" "1.18")
-declare -a VERSIONS_1_17=("1.17.1" "1.17")
-declare -a VERSIONS_1_16=("1.16.5" "1.16.4" "1.16.3" "1.16.2" "1.16.1")
-declare -a VERSIONS_1_15=("1.15.2" "1.15.1" "1.15")
-declare -a VERSIONS_1_14=("1.14.4" "1.14.3" "1.14.2" "1.14.1" "1.14")
-declare -a VERSIONS_1_12=("1.12.2" "1.12.1" "1.12")
-declare -a VERSIONS_1_11=("1.11.2" "1.11.1" "1.11")
-declare -a VERSIONS_1_10=("1.10.2" "1.10.1" "1.10")
+# Arrays de versiones (compatible con Bash 3)
+VERSIONS_1_21="1.21.10 1.21.8 1.21.6 1.21.4"
+VERSIONS_1_20="1.20.4 1.20.3 1.20.2 1.20.1"
+VERSIONS_1_19="1.19.2 1.19.1 1.19"
+VERSIONS_1_18="1.18.2 1.18.1 1.18"
+VERSIONS_1_17="1.17.1 1.17"
+VERSIONS_1_16="1.16.5 1.16.4 1.16.3 1.16.2 1.16.1"
+VERSIONS_1_15="1.15.2 1.15.1 1.15"
+VERSIONS_1_14="1.14.4 1.14.3 1.14.2 1.14.1 1.14"
+VERSIONS_1_12="1.12.2 1.12.1 1.12"
+VERSIONS_1_11="1.11.2 1.11.1 1.11"
+VERSIONS_1_10="1.10.2 1.10.1 1.10"
 
 # Configuración por defecto
 MOTD="Un Servidor de Minecraft"
@@ -140,7 +141,7 @@ check_command() {
 
 validate_port() {
     local port=$1
-    if ! [[ "$port" =~ ^[0-9]+$ ]] || [ "$port" -lt 1 ] || [ "$port" -gt 65535 ]; then
+    if ! echo "$port" | grep -qE '^[0-9]+$' || [ "$port" -lt 1 ] || [ "$port" -gt 65535 ]; then
         print_error "Puerto inválido. Debe estar entre 1 y 65535"
         return 1
     fi
@@ -149,7 +150,7 @@ validate_port() {
 
 validate_ram() {
     local ram=$1
-    if ! [[ "$ram" =~ ^[0-9]+$ ]] || [ "$ram" -lt 1 ]; then
+    if ! echo "$ram" | grep -qE '^[0-9]+$' || [ "$ram" -lt 1 ]; then
         print_error "RAM inválida. Debe ser un número positivo"
         return 1
     fi
@@ -158,11 +159,60 @@ validate_ram() {
 
 validate_folder_name() {
     local name=$1
-    if [[ "$name" =~ [^a-zA-Z0-9_-] ]]; then
+    if echo "$name" | grep -qE '[^a-zA-Z0-9_-]'; then
         print_error "El nombre de carpeta solo puede contener letras, números, guiones y guiones bajos"
         return 1
     fi
     return 0
+}
+
+#############################################################################
+# FUNCIÓN PARA OBTENER URL DE VERSIÓN
+#############################################################################
+
+get_version_url() {
+    local version=$1
+    case "$version" in
+        1.21.10) echo "https://piston-data.mojang.com/v1/objects/95495a7f485eedd84ce928cef5e223b757d2f764/server.jar" ;;
+        1.21.8) echo "https://piston-data.mojang.com/v1/objects/6bce4ef400e4efaa63a13d5e6f6b500be969ef81/server.jar" ;;
+        1.21.6) echo "https://piston-data.mojang.com/v1/objects/1ab5390fd6d5da60f08d13ea3f35db89aab1e6ac/server.jar" ;;
+        1.21.4) echo "https://piston-data.mojang.com/v1/objects/d5f32fc73e8f7417f32ddae2706ac0bf0a0c5cfb/server.jar" ;;
+        1.20.4) echo "https://piston-data.mojang.com/v1/objects/3437e7f1868b80f73967b96ce225219b5f15e28e/server.jar" ;;
+        1.20.3) echo "https://piston-data.mojang.com/v1/objects/e2004aff91aec0163e8f59ab4c2e3e4c80c98e16/server.jar" ;;
+        1.20.2) echo "https://piston-data.mojang.com/v1/objects/c9064d0894d03479d63684f6840d5371b6b8ee1e/server.jar" ;;
+        1.20.1) echo "https://piston-data.mojang.com/v1/objects/84b2e061efccf23eee218f16367e61491c5c8d82/server.jar" ;;
+        1.19.2) echo "https://piston-data.mojang.com/v1/objects/f00c3471e548ab20d7f72b426f61b3bcc2591302/server.jar" ;;
+        1.19.1) echo "https://piston-data.mojang.com/v1/objects/d2216616697cf14d92e480864e03c37ab92b0d72/server.jar" ;;
+        1.19) echo "https://piston-data.mojang.com/v1/objects/7e4c3d22d62c25e8ffc0843e9ce8a2e0d2a00ae5/server.jar" ;;
+        1.18.2) echo "https://piston-data.mojang.com/v1/objects/c8f83c5655308435b3dcf03f06144bb0d287d1c91/server.jar" ;;
+        1.18.1) echo "https://piston-data.mojang.com/v1/objects/3cf24a8694281d40dd1873d7b57ce089328deca9/server.jar" ;;
+        1.18) echo "https://piston-data.mojang.com/v1/objects/3dc3d84a581f14691b13b6b91ff53522ba9e5a33/server.jar" ;;
+        1.17.1) echo "https://piston-data.mojang.com/v1/objects/a16d67e5807f57fc4e550c051b920dda67045b76/server.jar" ;;
+        1.17) echo "https://piston-data.mojang.com/v1/objects/0c2569fcf3ffc4211df34a2ae29693ee2709b5ff/server.jar" ;;
+        1.16.5) echo "https://piston-data.mojang.com/v1/objects/1b557e7b033b583d006f4b7573965bb82823c3dd/server.jar" ;;
+        1.16.4) echo "https://piston-data.mojang.com/v1/objects/35139deedbd5182953cf1caa23835da59ca3d7cd/server.jar" ;;
+        1.16.3) echo "https://piston-data.mojang.com/v1/objects/f02f4473dbf152c23d7d484952121db0569d4909/server.jar" ;;
+        1.16.2) echo "https://piston-data.mojang.com/v1/objects/c5f6fb23c3876461d46ec380421e42b289789530/server.jar" ;;
+        1.16.1) echo "https://piston-data.mojang.com/v1/objects/a412fd69db1f81db3f511c1791d6e6698666e909/server.jar" ;;
+        1.15.2) echo "https://piston-data.mojang.com/v1/objects/bb2b6b1aefcd70dfd1892149b5c1112fce67720d/server.jar" ;;
+        1.15.1) echo "https://piston-data.mojang.com/v1/objects/4d60468b3bcc0b18550bf39a67035205eac68c006/server.jar" ;;
+        1.15) echo "https://piston-data.mojang.com/v1/objects/ed76ed597ea6635bcc899d6af6f55f3547314547/server.jar" ;;
+        1.14.4) echo "https://piston-data.mojang.com/v1/objects/e0604713079862373eff479535ab624fdde8043f/server.jar" ;;
+        1.14.3) echo "https://piston-data.mojang.com/v1/objects/d0d0fe2b6932e3e07d12d653d7572ba7cb7dc2e9/server.jar" ;;
+        1.14.2) echo "https://piston-data.mojang.com/v1/objects/808be3869e2ca6b62378f1bd418c4d69c7681871/server.jar" ;;
+        1.14.1) echo "https://piston-data.mojang.com/v1/objects/2ecc8ef3fb56e213dcc4b31043dae2588b5d68d37/server.jar" ;;
+        1.14) echo "https://piston-data.mojang.com/v1/objects/f1a0073671057f01aa7d01b0571a0791562af8fb/server.jar" ;;
+        1.12.2) echo "https://piston-data.mojang.com/v1/objects/88887b7937495e422b2913a8628aa24bd8de0b07/server.jar" ;;
+        1.12.1) echo "https://piston-data.mojang.com/v1/objects/6820b4dada4467b10158e43ce3f51cdc326b38df/server.jar" ;;
+        1.12) echo "https://piston-data.mojang.com/v1/objects/8494e92e9fcc6e879c4eb1580f9f00496c0ebe7f/server.jar" ;;
+        1.11.2) echo "https://piston-data.mojang.com/v1/objects/f00c3471e548ab20d7f72b426f61b3bcc2591302/server.jar" ;;
+        1.11.1) echo "https://piston-data.mojang.com/v1/objects/03d8371cd36e4704b57b7bff374de5934c4be251/server.jar" ;;
+        1.11) echo "https://piston-data.mojang.com/v1/objects/3737db93722190ce681435c41c487039b59f1d99/server.jar" ;;
+        1.10.2) echo "https://piston-data.mojang.com/v1/objects/846e1503127d737fb579bb9baa36fb9d0d732e42/server.jar" ;;
+        1.10.1) echo "https://piston-data.mojang.com/v1/objects/b58b2cea346ce0862bc1c6bf75f5201796b7221b/server.jar" ;;
+        1.10) echo "https://piston-data.mojang.com/v1/objects/9eef99421540686d17ad0e318265afcc1244e38d9/server.jar" ;;
+        *) echo "" ;;
+    esac
 }
 
 #############################################################################
@@ -195,11 +245,11 @@ show_ram_recommendation_dialog() {
 
 recommend_ram_by_value() {
     local ram=$1
-    if [[ $ram -le 2 ]]; then
+    if [ "$ram" -le 2 ]; then
         print_tip "Con ${ram}GB puedes jugar 1-5 jugadores sin problemas"
-    elif [[ $ram -le 4 ]]; then
+    elif [ "$ram" -le 4 ]; then
         print_tip "Con ${ram}GB es ideal para 5-15 jugadores"
-    elif [[ $ram -le 8 ]]; then
+    elif [ "$ram" -le 8 ]; then
         print_tip "Con ${ram}GB soportarás 15-30 jugadores sin lag"
     else
         print_tip "Con ${ram}GB puedes jugar con 30+ jugadores sin problemas"
@@ -215,7 +265,7 @@ check_java() {
         JAVA_VERSION_INSTALLED=$(java -version 2>&1 | grep -oE '[0-9]{1,2}' | head -1 || echo "0")
         print_success "Java $JAVA_VERSION_INSTALLED encontrado"
         debug_log "Java version detected: $JAVA_VERSION_INSTALLED"
-        if [[ $JAVA_VERSION_INSTALLED -ge 21 ]]; then
+        if [ "$JAVA_VERSION_INSTALLED" -ge 21 ]; then
             print_success "Java version es compatible (≥ 21)"
             return 0
         else
@@ -234,7 +284,7 @@ check_java() {
 
 get_network_info() {
     print_header "Obteniendo Información de Red"
-    if [[ "$OSTYPE" == "darwin"* ]]; then
+    if [ "$(uname)" = "Darwin" ]; then
         PRIVATE_IP=$(ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}' | head -1)
     else
         PRIVATE_IP=$(hostname -I | awk '{print $1}')
@@ -246,13 +296,13 @@ get_network_info() {
     if check_command curl; then
         PUBLIC_IP=$(curl -s --max-time 5 https://api.ipify.org 2>/dev/null || echo "")
     fi
-    if [[ -n "$PUBLIC_IP" ]]; then
+    if [ -n "$PUBLIC_IP" ]; then
         print_success "IP Pública: $PUBLIC_IP"
         debug_log "Public IP: $PUBLIC_IP"
     else
         print_warning "No se pudo obtener IP pública automáticamente"
         read -p "Ingresa tu IP pública manualmente (o presiona Enter para omitir): " PUBLIC_IP
-        if [[ -z "$PUBLIC_IP" ]]; then
+        if [ -z "$PUBLIC_IP" ]; then
             PUBLIC_IP="[NO CONFIGURADA]"
         fi
         debug_log "Public IP (manual): $PUBLIC_IP"
@@ -264,7 +314,7 @@ get_network_info() {
 #############################################################################
 
 select_operation_mode() {
-    print_header "🎮 MINECRAFT AUTO SERVER SETUP v3.12"
+    print_header "🎮 MINECRAFT AUTO SERVER SETUP v3.13"
     echo "Elige cómo configurar tu servidor:"
     echo "  1) ⚡ Modo Rápido (30 segundos)"
     echo "  2) 🔧 Modo Experto (personalización completa)"
@@ -333,20 +383,20 @@ select_version_submenu() {
         echo "  0) Volver atrás"
         read -p "Selecciona categoría (0-10): " category_choice
         case $category_choice in
-            1) select_version_from_array "VERSIONS_1_20" "1.20.x" ;;
-            2) select_version_from_array "VERSIONS_1_19" "1.19.x" ;;
-            3) select_version_from_array "VERSIONS_1_18" "1.18.x" ;;
-            4) select_version_from_array "VERSIONS_1_17" "1.17.x" ;;
-            5) select_version_from_array "VERSIONS_1_16" "1.16.x" ;;
-            6) select_version_from_array "VERSIONS_1_15" "1.15.x" ;;
-            7) select_version_from_array "VERSIONS_1_14" "1.14.x" ;;
-            8) select_version_from_array "VERSIONS_1_12" "1.12.x" ;;
-            9) select_version_from_array "VERSIONS_1_11" "1.11.x" ;;
-            10) select_version_from_array "VERSIONS_1_10" "1.10.x" ;;
+            1) select_version_from_list "VERSIONS_1_20" "1.20.x" ;;
+            2) select_version_from_list "VERSIONS_1_19" "1.19.x" ;;
+            3) select_version_from_list "VERSIONS_1_18" "1.18.x" ;;
+            4) select_version_from_list "VERSIONS_1_17" "1.17.x" ;;
+            5) select_version_from_list "VERSIONS_1_16" "1.16.x" ;;
+            6) select_version_from_list "VERSIONS_1_15" "1.15.x" ;;
+            7) select_version_from_list "VERSIONS_1_14" "1.14.x" ;;
+            8) select_version_from_list "VERSIONS_1_12" "1.12.x" ;;
+            9) select_version_from_list "VERSIONS_1_11" "1.11.x" ;;
+            10) select_version_from_list "VERSIONS_1_10" "1.10.x" ;;
             0) return ;;
             *) print_error "Opción inválida" ;;
         esac
-        if [[ -n "$MINECRAFT_VERSION" ]]; then
+        if [ -n "$MINECRAFT_VERSION" ]; then
             print_success "Versión seleccionada: $MINECRAFT_VERSION"
             debug_log "Minecraft version selected: $MINECRAFT_VERSION"
             return
@@ -354,26 +404,33 @@ select_version_submenu() {
     done
 }
 
-select_version_from_array() {
-    local array_name=$1
+select_version_from_list() {
+    local var_name=$1
     local category=$2
     print_header "Selecciona versión de $category"
-    local -n versions=$array_name
+    eval "local versions=\$$var_name"
     echo "Versiones disponibles:"
-    for i in "${!versions[@]}"; do
-        echo "  $((i+1))) ${versions[$i]}"
+    local i=1
+    for v in $versions; do
+        echo "  $i) $v"
+        i=$((i + 1))
     done
     echo "  0) Volver"
     read -p "Selecciona una versión: " version_choice
-    if [[ $version_choice -eq 0 ]]; then
+    if [ "$version_choice" -eq 0 ]; then
         MINECRAFT_VERSION=""
         return
-    elif [[ $version_choice -ge 1 && $version_choice -le ${#versions[@]} ]]; then
-        MINECRAFT_VERSION="${versions[$((version_choice-1))]}"
-    else
-        print_error "Opción inválida"
-        MINECRAFT_VERSION=""
     fi
+    local i=1
+    for v in $versions; do
+        if [ "$i" -eq "$version_choice" ]; then
+            MINECRAFT_VERSION="$v"
+            return
+        fi
+        i=$((i + 1))
+    done
+    print_error "Opción inválida"
+    MINECRAFT_VERSION=""
 }
 
 #############################################################################
@@ -426,9 +483,9 @@ select_basic_config() {
         fi
     done
     read -p "MOTD (Descripción del servidor) [default: '$MOTD']: " input
-    [[ -n "$input" ]] && MOTD="$input"
+    [ -n "$input" ] && MOTD="$input"
     read -p "Número máximo de jugadores [default: $MAX_PLAYERS]: " input
-    if [[ -n "$input" ]] && [[ "$input" =~ ^[0-9]+$ ]]; then
+    if [ -n "$input" ] && echo "$input" | grep -qE '^[0-9]+$'; then
         MAX_PLAYERS="$input"
     fi
     while true; do
@@ -440,11 +497,15 @@ select_basic_config() {
         fi
     done
     read -p "Modo de juego (survival/creative/adventure) [default: $GAMEMODE]: " input
-    [[ -n "$input" ]] && GAMEMODE="$input"
+    [ -n "$input" ] && GAMEMODE="$input"
     read -p "Dificultad (peaceful/easy/normal/hard) [default: $DIFFICULTY]: " input
-    [[ -n "$input" ]] && DIFFICULTY="$input"
+    [ -n "$input" ] && DIFFICULTY="$input"
     read -p "¿Modo online (s/n)? [default: s]: " online_choice
-    [[ "$online_choice" == "n" || "$online_choice" == "N" ]] && ONLINE_MODE="false" || ONLINE_MODE="true"
+    if [ "$online_choice" = "n" ] || [ "$online_choice" = "N" ]; then
+        ONLINE_MODE="false"
+    else
+        ONLINE_MODE="true"
+    fi
     print_success "Configuración rápida completada"
     debug_log "Basic config completed"
 }
@@ -492,25 +553,25 @@ show_advanced_menu() {
             3) read -p "Nueva semilla: " LEVEL_SEED; print_success "Actualizado" ;;
             4) read -p "Nuevo MOTD: " MOTD; print_success "Actualizado" ;;
             5) while true; do read -p "Nuevo puerto: " input; if validate_port "$input"; then SERVER_PORT="$input"; print_success "Actualizado"; break; fi; done ;;
-            6) echo "1) survival 2) creative 3) adventure 4) spectator"; read -p "Selecciona: " gm; [[ $gm -eq 1 ]] && GAMEMODE="survival" || [[ $gm -eq 2 ]] && GAMEMODE="creative" || [[ $gm -eq 3 ]] && GAMEMODE="adventure" || [[ $gm -eq 4 ]] && GAMEMODE="spectator"; print_success "Actualizado" ;;
-            7) echo "1) peaceful 2) easy 3) normal 4) hard"; read -p "Selecciona: " df; [[ $df -eq 1 ]] && DIFFICULTY="peaceful" || [[ $df -eq 2 ]] && DIFFICULTY="easy" || [[ $df -eq 3 ]] && DIFFICULTY="normal" || [[ $df -eq 4 ]] && DIFFICULTY="hard"; print_success "Actualizado" ;;
+            6) echo "1) survival 2) creative 3) adventure 4) spectator"; read -p "Selecciona: " gm; [ "$gm" -eq 1 ] && GAMEMODE="survival" || [ "$gm" -eq 2 ] && GAMEMODE="creative" || [ "$gm" -eq 3 ] && GAMEMODE="adventure" || [ "$gm" -eq 4 ] && GAMEMODE="spectator"; print_success "Actualizado" ;;
+            7) echo "1) peaceful 2) easy 3) normal 4) hard"; read -p "Selecciona: " df; [ "$df" -eq 1 ] && DIFFICULTY="peaceful" || [ "$df" -eq 2 ] && DIFFICULTY="easy" || [ "$df" -eq 3 ] && DIFFICULTY="normal" || [ "$df" -eq 4 ] && DIFFICULTY="hard"; print_success "Actualizado" ;;
             8) read -p "Nuevo máximo: " MAX_PLAYERS; print_success "Actualizado" ;;
-            9) read -p "¿Online? (s/n): " ol; [[ "$ol" == "s" ]] && ONLINE_MODE="true" || ONLINE_MODE="false"; print_success "Actualizado" ;;
-            10) read -p "¿Lista blanca? (s/n): " wl; [[ "$wl" == "s" ]] && WHITE_LIST="true" || WHITE_LIST="false"; print_success "Actualizado" ;;
-            11) read -p "¿PvP? (s/n): " pv; [[ "$pv" == "s" ]] && PVP="true" || PVP="false"; print_success "Actualizado" ;;
+            9) read -p "¿Online? (s/n): " ol; [ "$ol" = "s" ] && ONLINE_MODE="true" || ONLINE_MODE="false"; print_success "Actualizado" ;;
+            10) read -p "¿Lista blanca? (s/n): " wl; [ "$wl" = "s" ] && WHITE_LIST="true" || WHITE_LIST="false"; print_success "Actualizado" ;;
+            11) read -p "¿PvP? (s/n): " pv; [ "$pv" = "s" ] && PVP="true" || PVP="false"; print_success "Actualizado" ;;
             12) read -p "Nuevo valor: " SPAWN_PROTECTION; print_success "Actualizado" ;;
             13) show_ram_recommendation_dialog ;;
             14) while true; do read -p "Nueva RAM mín: " input; if validate_ram "$input"; then MIN_RAM="$input"; print_success "Actualizado"; recommend_ram_by_value "$MIN_RAM"; break; fi; done ;;
             15) while true; do read -p "Nueva RAM máx: " input; if validate_ram "$input"; then MAX_RAM="$input"; print_success "Actualizado"; recommend_ram_by_value "$MAX_RAM"; break; fi; done ;;
             16) read -p "Nuevo valor (3-32): " VIEW_DISTANCE; print_success "Actualizado" ;;
             17) read -p "Nuevo valor: " MAX_BUILD_HEIGHT; print_success "Actualizado" ;;
-            18) read -p "¿Comandos? (s/n): " cb; [[ "$cb" == "s" ]] && ENABLE_COMMAND_BLOCK="true" || ENABLE_COMMAND_BLOCK="false"; print_success "Actualizado" ;;
-            19) read -p "¿Nether? (s/n): " nether; [[ "$nether" == "s" ]] && ALLOW_NETHER="true" || ALLOW_NETHER="false"; print_success "Actualizado" ;;
-            20) read -p "¿End? (s/n): " end; [[ "$end" == "s" ]] && ALLOW_END="true" || ALLOW_END="false"; print_success "Actualizado" ;;
-            21) read -p "¿Vuelo? (s/n): " fl; [[ "$fl" == "s" ]] && ALLOW_FLIGHT="true" || ALLOW_FLIGHT="false"; print_success "Actualizado" ;;
-            22) read -p "¿Anunciar logros? (s/n): " achv; [[ "$achv" == "s" ]] && ANNOUNCE_PLAYER_ACHIEVEMENTS="true" || ANNOUNCE_PLAYER_ACHIEVEMENTS="false"; print_success "Actualizado" ;;
-            23) read -p "¿Forzar modo? (s/n): " force; [[ "$force" == "s" ]] && FORCE_GAMEMODE="true" || FORCE_GAMEMODE="false"; print_success "Actualizado" ;;
-            24) read -p "¿RCON? (s/n): " rc; [[ "$rc" == "s" ]] && ENABLE_RCON="true" || ENABLE_RCON="false"; print_success "Actualizado" ;;
+            18) read -p "¿Comandos? (s/n): " cb; [ "$cb" = "s" ] && ENABLE_COMMAND_BLOCK="true" || ENABLE_COMMAND_BLOCK="false"; print_success "Actualizado" ;;
+            19) read -p "¿Nether? (s/n): " nether; [ "$nether" = "s" ] && ALLOW_NETHER="true" || ALLOW_NETHER="false"; print_success "Actualizado" ;;
+            20) read -p "¿End? (s/n): " end; [ "$end" = "s" ] && ALLOW_END="true" || ALLOW_END="false"; print_success "Actualizado" ;;
+            21) read -p "¿Vuelo? (s/n): " fl; [ "$fl" = "s" ] && ALLOW_FLIGHT="true" || ALLOW_FLIGHT="false"; print_success "Actualizado" ;;
+            22) read -p "¿Anunciar logros? (s/n): " achv; [ "$achv" = "s" ] && ANNOUNCE_PLAYER_ACHIEVEMENTS="true" || ANNOUNCE_PLAYER_ACHIEVEMENTS="false"; print_success "Actualizado" ;;
+            23) read -p "¿Forzar modo? (s/n): " force; [ "$force" = "s" ] && FORCE_GAMEMODE="true" || FORCE_GAMEMODE="false"; print_success "Actualizado" ;;
+            24) read -p "¿RCON? (s/n): " rc; [ "$rc" = "s" ] && ENABLE_RCON="true" || ENABLE_RCON="false"; print_success "Actualizado" ;;
             25) while true; do read -p "Nuevo puerto RCON: " input; if validate_port "$input"; then RCON_PORT="$input"; print_success "Actualizado"; break; fi; done ;;
             26) read -p "Nueva contraseña RCON: " RCON_PASSWORD; print_success "Actualizado" ;;
             27) show_current_config ;;
@@ -538,67 +599,26 @@ download_vanilla_server() {
     print_header "Descargando Servidor Vanilla ($MINECRAFT_VERSION)"
     debug_log "Starting Vanilla download for version $MINECRAFT_VERSION"
     
-    # Mapeo de versiones a URLs
-    declare -A VANILLA_URLS
-    VANILLA_URLS[1.21.10]="https://piston-data.mojang.com/v1/objects/95495a7f485eedd84ce928cef5e223b757d2f764/server.jar"
-    VANILLA_URLS[1.21.8]="https://piston-data.mojang.com/v1/objects/6bce4ef400e4efaa63a13d5e6f6b500be969ef81/server.jar"
-    VANILLA_URLS[1.21.6]="https://piston-data.mojang.com/v1/objects/1ab5390fd6d5da60f08d13ea3f35db89aab1e6ac/server.jar"
-    VANILLA_URLS[1.21.4]="https://piston-data.mojang.com/v1/objects/d5f32fc73e8f7417f32ddae2706ac0bf0a0c5cfb/server.jar"
-    VANILLA_URLS[1.20.4]="https://piston-data.mojang.com/v1/objects/3437e7f1868b80f73967b96ce225219b5f15e28e/server.jar"
-    VANILLA_URLS[1.20.3]="https://piston-data.mojang.com/v1/objects/e2004aff91aec0163e8f59ab4c2e3e4c80c98e16/server.jar"
-    VANILLA_URLS[1.20.2]="https://piston-data.mojang.com/v1/objects/c9064d0894d03479d63684f6840d5371b6b8ee1e/server.jar"
-    VANILLA_URLS[1.20.1]="https://piston-data.mojang.com/v1/objects/84b2e061efccf23eee218f16367e61491c5c8d82/server.jar"
-    VANILLA_URLS[1.19.2]="https://piston-data.mojang.com/v1/objects/f00c3471e548ab20d7f72b426f61b3bcc2591302/server.jar"
-    VANILLA_URLS[1.19.1]="https://piston-data.mojang.com/v1/objects/d2216616697cf14d92e480864e03c37ab92b0d72/server.jar"
-    VANILLA_URLS[1.19]="https://piston-data.mojang.com/v1/objects/7e4c3d22d62c25e8ffc0843e9ce8a2e0d2a00ae5/server.jar"
-    VANILLA_URLS[1.18.2]="https://piston-data.mojang.com/v1/objects/c8f83c5655308435b3dcf03f06144bb0d287d1c91/server.jar"
-    VANILLA_URLS[1.18.1]="https://piston-data.mojang.com/v1/objects/3cf24a8694281d40dd1873d7b57ce089328deca9/server.jar"
-    VANILLA_URLS[1.18]="https://piston-data.mojang.com/v1/objects/3dc3d84a581f14691b13b6b91ff53522ba9e5a33/server.jar"
-    VANILLA_URLS[1.17.1]="https://piston-data.mojang.com/v1/objects/a16d67e5807f57fc4e550c051b920dda67045b76/server.jar"
-    VANILLA_URLS[1.17]="https://piston-data.mojang.com/v1/objects/0c2569fcf3ffc4211df34a2ae29693ee2709b5ff/server.jar"
-    VANILLA_URLS[1.16.5]="https://piston-data.mojang.com/v1/objects/1b557e7b033b583d006f4b7573965bb82823c3dd/server.jar"
-    VANILLA_URLS[1.16.4]="https://piston-data.mojang.com/v1/objects/35139deedbd5182953cf1caa23835da59ca3d7cd/server.jar"
-    VANILLA_URLS[1.16.3]="https://piston-data.mojang.com/v1/objects/f02f4473dbf152c23d7d484952121db0569d4909/server.jar"
-    VANILLA_URLS[1.16.2]="https://piston-data.mojang.com/v1/objects/c5f6fb23c3876461d46ec380421e42b289789530/server.jar"
-    VANILLA_URLS[1.16.1]="https://piston-data.mojang.com/v1/objects/a412fd69db1f81db3f511c1791d6e6698666e909/server.jar"
-    VANILLA_URLS[1.15.2]="https://piston-data.mojang.com/v1/objects/bb2b6b1aefcd70dfd1892149b5c1112fce67720d/server.jar"
-    VANILLA_URLS[1.15.1]="https://piston-data.mojang.com/v1/objects/4d60468b3bcc0b18550bf39a67035205eac68c006/server.jar"
-    VANILLA_URLS[1.15]="https://piston-data.mojang.com/v1/objects/ed76ed597ea6635bcc899d6af6f55f3547314547/server.jar"
-    VANILLA_URLS[1.14.4]="https://piston-data.mojang.com/v1/objects/e0604713079862373eff479535ab624fdde8043f/server.jar"
-    VANILLA_URLS[1.14.3]="https://piston-data.mojang.com/v1/objects/d0d0fe2b6932e3e07d12d653d7572ba7cb7dc2e9/server.jar"
-    VANILLA_URLS[1.14.2]="https://piston-data.mojang.com/v1/objects/808be3869e2ca6b62378f1bd418c4d69c7681871/server.jar"
-    VANILLA_URLS[1.14.1]="https://piston-data.mojang.com/v1/objects/2ecc8ef3fb56e213dcc4b31043dae2588b5d68d37/server.jar"
-    VANILLA_URLS[1.14]="https://piston-data.mojang.com/v1/objects/f1a0073671057f01aa7d01b0571a0791562af8fb/server.jar"
-    VANILLA_URLS[1.12.2]="https://piston-data.mojang.com/v1/objects/88887b7937495e422b2913a8628aa24bd8de0b07/server.jar"
-    VANILLA_URLS[1.12.1]="https://piston-data.mojang.com/v1/objects/6820b4dada4467b10158e43ce3f51cdc326b38df/server.jar"
-    VANILLA_URLS[1.12]="https://piston-data.mojang.com/v1/objects/8494e92e9fcc6e879c4eb1580f9f00496c0ebe7f/server.jar"
-    VANILLA_URLS[1.11.2]="https://piston-data.mojang.com/v1/objects/f00c3471e548ab20d7f72b426f61b3bcc2591302/server.jar"
-    VANILLA_URLS[1.11.1]="https://piston-data.mojang.com/v1/objects/03d8371cd36e4704b57b7bff374de5934c4be251/server.jar"
-    VANILLA_URLS[1.11]="https://piston-data.mojang.com/v1/objects/3737db93722190ce681435c41c487039b59f1d99/server.jar"
-    VANILLA_URLS[1.10.2]="https://piston-data.mojang.com/v1/objects/846e1503127d737fb579bb9baa36fb9d0d732e42/server.jar"
-    VANILLA_URLS[1.10.1]="https://piston-data.mojang.com/v1/objects/b58b2cea346ce0862bc1c6bf75f5201796b7221b/server.jar"
-    VANILLA_URLS[1.10]="https://piston-data.mojang.com/v1/objects/9eef99421540686d17ad0e318265afcc1244e38d9/server.jar"
+    DOWNLOAD_URL=$(get_version_url "$MINECRAFT_VERSION")
     
-    # Verificar que la versión exista
-    if [[ -z "${VANILLA_URLS[$MINECRAFT_VERSION]}" ]]; then
+    if [ -z "$DOWNLOAD_URL" ]; then
         print_error "Versión $MINECRAFT_VERSION no soportada"
         debug_log "ERROR: Version $MINECRAFT_VERSION not found"
         exit 1
     fi
     
-    DOWNLOAD_URL="${VANILLA_URLS[$MINECRAFT_VERSION]}"
     debug_log "Download URL: $DOWNLOAD_URL"
     print_info "Descargando versión $MINECRAFT_VERSION..."
     mkdir -p "$SERVER_DIR"
     
     local max_attempts=3
     local attempt=1
-    while [[ $attempt -le $max_attempts ]]; do
+    while [ $attempt -le $max_attempts ]; do
         print_info "Intento $attempt de $max_attempts..."
         debug_log "Download attempt $attempt"
         if check_command curl; then
             if curl -f -L --max-time 300 -o "$SERVER_DIR/server.jar" "$DOWNLOAD_URL" 2>/dev/null; then
-                if [[ -f "$SERVER_DIR/server.jar" ]] && [[ -s "$SERVER_DIR/server.jar" ]]; then
+                if [ -f "$SERVER_DIR/server.jar" ] && [ -s "$SERVER_DIR/server.jar" ]; then
                     local filesize=$(du -h "$SERVER_DIR/server.jar" | cut -f1)
                     print_success "Servidor descargado correctamente ($filesize)"
                     debug_log "Download successful - Size: $filesize"
@@ -607,7 +627,7 @@ download_vanilla_server() {
             fi
         fi
         attempt=$((attempt + 1))
-        if [[ $attempt -le $max_attempts ]]; then
+        if [ $attempt -le $max_attempts ]; then
             print_warning "Reintentando en 5 segundos..."
             debug_log "Retrying download"
             sleep 5
@@ -630,7 +650,7 @@ download_paper_server() {
     local api_url="https://api.papermc.io/v2/projects/paper/versions/$MINECRAFT_VERSION"
     debug_log "Paper API URL: $api_url"
     BUILDS=$(curl -s -A "$USER_AGENT" "$api_url" 2>&1 | grep -o '"builds":\[[0-9,]*\]' | grep -o '[0-9]*' | tail -1 2>/dev/null || echo "")
-    if [[ -z "$BUILDS" ]]; then
+    if [ -z "$BUILDS" ]; then
         print_error "No se pudo obtener Paper para versión $MINECRAFT_VERSION"
         debug_log "ERROR: Could not fetch Paper builds"
         exit 1
@@ -641,17 +661,17 @@ download_paper_server() {
     DOWNLOAD_URL="https://api.papermc.io/v2/projects/paper/versions/$MINECRAFT_VERSION/builds/$LATEST_BUILD/downloads/paper-$MINECRAFT_VERSION-$LATEST_BUILD.jar"
     local max_attempts=3
     local attempt=1
-    while [[ $attempt -le $max_attempts ]]; do
+    while [ $attempt -le $max_attempts ]; do
         print_info "Intento $attempt de $max_attempts..."
         if curl -f -L --max-time 300 -A "$USER_AGENT" -o "$SERVER_DIR/server.jar" "$DOWNLOAD_URL" 2>/dev/null; then
-            if [[ -f "$SERVER_DIR/server.jar" ]] && [[ -s "$SERVER_DIR/server.jar" ]]; then
+            if [ -f "$SERVER_DIR/server.jar" ] && [ -s "$SERVER_DIR/server.jar" ]; then
                 print_success "Servidor Paper descargado correctamente"
                 debug_log "Paper download successful"
                 return 0
             fi
         fi
         attempt=$((attempt + 1))
-        if [[ $attempt -le $max_attempts ]]; then
+        if [ $attempt -le $max_attempts ]; then
             print_warning "Reintentando..."
             sleep 5
         fi
@@ -685,7 +705,7 @@ download_server_icon() {
     debug_log "Downloading icon from: $ICON_URL"
     if check_command curl; then
         if curl -f -L --max-time 60 -o "$SERVER_DIR/server-icon.png" "$ICON_URL" 2>/dev/null; then
-            if [[ -f "$SERVER_DIR/server-icon.png" ]] && [[ -s "$SERVER_DIR/server-icon.png" ]]; then
+            if [ -f "$SERVER_DIR/server-icon.png" ] && [ -s "$SERVER_DIR/server-icon.png" ]; then
                 print_success "Icono descargado correctamente"
                 debug_log "Icon download successful"
                 return 0
@@ -705,7 +725,7 @@ configure_server() {
     print_header "Configurando el Servidor"
     debug_log "Starting server configuration"
     mkdir -p "$SERVER_DIR"
-    if [[ "$SERVER_TYPE" == "paper" ]]; then
+    if [ "$SERVER_TYPE" = "paper" ]; then
         mkdir -p "$SERVER_DIR/plugins"
         print_success "Carpeta de plugins creada"
     fi
@@ -827,7 +847,7 @@ show_router_guide() {
 start_server_now() {
     print_header "🚀 INICIAR SERVIDOR"
     read -p "¿Iniciar el servidor ahora? (s/n): " start_choice
-    if [[ "$start_choice" == "s" || "$start_choice" == "S" ]]; then
+    if [ "$start_choice" = "s" ] || [ "$start_choice" = "S" ]; then
         debug_log "Starting server"
         cd "$SERVER_DIR" || exit 1
         print_share_server_info
@@ -883,9 +903,9 @@ setup_rapido_mode() {
 
 main() {
     > "$LOG_FILE"
-    debug_log "Script started - Version 3.12"
+    debug_log "Script started - Version 3.13"
     clear
-    print_header "Configurador Auto Minecraft v3.12"
+    print_header "Configurador Auto Minecraft v3.13"
     echo -e "${MAGENTA}© 2025 - Nahuel Granollers${NC}"
     select_operation_mode
     if ! check_java; then
@@ -894,7 +914,7 @@ main() {
         exit 1
     fi
     get_network_info
-    if [[ "$OPERATION_MODE" == "rapido" ]]; then
+    if [ "$OPERATION_MODE" = "rapido" ]; then
         setup_rapido_mode
         download_server
         configure_server
@@ -902,7 +922,7 @@ main() {
         create_start_script
         print_final_info
         read -p "¿Iniciar el servidor ahora? (s/n): " start_choice
-        if [[ "$start_choice" == "s" || "$start_choice" == "S" ]]; then
+        if [ "$start_choice" = "s" ] || [ "$start_choice" = "S" ]; then
             debug_log "Starting server in rapid mode"
             cd "$SERVER_DIR" || exit 1
             print_share_server_info
@@ -920,7 +940,7 @@ main() {
         select_server_type
         select_basic_config
         read -p "¿Configuración avanzada? (s/n): " adv_choice
-        if [[ "$adv_choice" == "s" || "$adv_choice" == "S" ]]; then
+        if [ "$adv_choice" = "s" ] || [ "$adv_choice" = "S" ]; then
             show_advanced_menu
         fi
         download_server
