@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #############################################################################
-# Script de Configuración Automatizada de Servidor Minecraft (v3.11)
+# Script de Configuración Automatizada de Servidor Minecraft (v3.12)
 # Descarga, configura e inicia un servidor Minecraft Java Edition
 # Compatible con: Vanilla, Paper, Forge
 #
@@ -31,7 +31,7 @@ SERVER_FOLDER_NAME="minecraft_server"
 JAVA_VERSION="21"
 PUBLIC_IP=""
 PRIVATE_IP=""
-USER_AGENT="MinecraftServerSetup/3.11 (+https://github.com/NahuelGranollers/minecraft_auto_server)"
+USER_AGENT="MinecraftServerSetup/3.12 (+https://github.com/NahuelGranollers/minecraft_auto_server)"
 ICON_URL="https://raw.githubusercontent.com/NahuelGranollers/minecraft_auto_server/refs/heads/main/server_icon/icon.png"
 OPERATION_MODE="expert"
 LOG_FILE="$SCRIPT_DIR/setup_debug.log"
@@ -264,7 +264,7 @@ get_network_info() {
 #############################################################################
 
 select_operation_mode() {
-    print_header "🎮 MINECRAFT AUTO SERVER SETUP v3.11"
+    print_header "🎮 MINECRAFT AUTO SERVER SETUP v3.12"
     echo "Elige cómo configurar tu servidor:"
     echo "  1) ⚡ Modo Rápido (30 segundos)"
     echo "  2) 🔧 Modo Experto (personalización completa)"
@@ -577,15 +577,18 @@ download_vanilla_server() {
         ["1.10.1"]="https://piston-data.mojang.com/v1/objects/b58b2cea346ce0862bc1c6bf75f5201796b7221b/server.jar"
         ["1.10"]="https://piston-data.mojang.com/v1/objects/9eef99421540686d17ad0e318265afcc1244e38d9/server.jar"
     )
+    
     if [[ -z "${VANILLA_URLS[$MINECRAFT_VERSION]}" ]]; then
         print_error "Versión $MINECRAFT_VERSION no soportada"
         debug_log "ERROR: Version $MINECRAFT_VERSION not found"
         exit 1
     fi
+    
     DOWNLOAD_URL="${VANILLA_URLS[$MINECRAFT_VERSION]}"
     debug_log "Download URL: $DOWNLOAD_URL"
     print_info "Descargando versión $MINECRAFT_VERSION..."
     mkdir -p "$SERVER_DIR"
+    
     local max_attempts=3
     local attempt=1
     while [[ $attempt -le $max_attempts ]]; do
@@ -878,9 +881,9 @@ setup_rapido_mode() {
 
 main() {
     > "$LOG_FILE"
-    debug_log "Script started - Version 3.11"
+    debug_log "Script started - Version 3.12"
     clear
-    print_header "Configurador Auto Minecraft v3.11"
+    print_header "Configurador Auto Minecraft v3.12"
     echo -e "${MAGENTA}© 2025 - Nahuel Granollers${NC}"
     select_operation_mode
     if ! check_java; then
