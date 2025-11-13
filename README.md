@@ -56,7 +56,7 @@ cd minecraft_server
 
 ### Instalar - Java 21+
 
-1. Descarga Java 21: https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html/
+1. Descarga Java 21: https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html
 2. Instala con opciones por defecto
 
 ---
