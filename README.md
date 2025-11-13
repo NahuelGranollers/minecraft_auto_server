@@ -54,11 +54,12 @@ cd minecraft_server
 | macOS | ✅ Soportado |
 | Windows | ✅ Usa Git Bash o WSL2 |
 
-**Necesitas:**
-- Java 21+ (el script lo instala automáticamente)
-- curl (generalmente preinstalado)
-- Conexión a internet
+### Instalar - Java 21+
 
+1. Descarga Java 21: https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html/
+2. Instala con opciones por defecto
+
+---
 ### Windows - Git Bash
 
 1. Descarga Git Bash: https://gitforwindows.org/
