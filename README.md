@@ -70,8 +70,10 @@ cd minecraft_server
 ---
 ### macOS y Linux - Homebrew
 
-1. Descarga Homebrew: https://brew.sh
-2. Instala con opciones por defecto
+1. Visita: https://brew.sh o ejecuta:
+```terminal o shell prompt
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
 
 ---
 ## 🚀 Dos Modos
