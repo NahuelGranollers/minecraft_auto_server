@@ -3,9 +3,9 @@
 > **Configuración automática de servidores Minecraft Java Edition en tu PC local**
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-3.2-brightgreen.svg)](https://github.com/NahuelGranollers/minecraft_auto_server)
+[![Version](https://img.shields.io/badge/Version-3.13-brightgreen.svg)](https://github.com/NahuelGranollers/minecraft_auto_server)
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.10--1.21.10-red.svg)](https://www.minecraft.net/)
-[![Bash](https://img.shields.io/badge/Bash-5.0+-black.svg)](https://www.gnu.org/software/bash/)
+[![Bash](https://img.shields.io/badge/Bash-3.0+-black.svg)](https://www.gnu.org/software/bash/)
 
 **Creado por:** [Nahuel Granollers](https://nahuelgranollers.com)
 
@@ -68,7 +68,12 @@ cd minecraft_server
 4. Navega a la carpeta y ejecuta los comandos arriba
 
 ---
+### macOS y Linux - Homebrew
 
+1. Descarga Homebrew: https://brew.sh
+2. Instala con opciones por defecto
+
+---
 ## 🚀 Dos Modos
 
 ### ⚡ Modo Rápido (Principiantes)
